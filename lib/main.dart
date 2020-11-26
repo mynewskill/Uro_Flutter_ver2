@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:uro_control/home_page_logo.dart';
 import 'package:uro_control/my_strings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 void main() {
   runApp(UroControlMain());
@@ -9,6 +11,15 @@ void main() {
 
 class UroControlMain extends StatelessWidget {
   // This widget is the root of your application.
+
+  void initState() async {
+    final prefs = await SharedPreferences.getInstance();
+    int weight = (prefs.getInt('weight') ?? 0);
+    int tall = (prefs.getInt('tall') ?? 0);
+    int age = (prefs.getInt('age') ?? 0);
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,7 +72,9 @@ class SecondPage extends StatelessWidget{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _fieldPool(label: "Вес", hint: "в килограммах", focus: true)
+            _fieldPool(label: "Вес", hint: "в килограммах", focus: true),
+            _fieldPool(label: "Рост", hint: "в сантиметрах"),
+            _fieldPool(label: "Возраст"),
           ],
         ),
       )
@@ -80,12 +93,17 @@ class SecondPage extends StatelessWidget{
 // ),
 // )
 
-TextField _fieldPool({String label, String hint, int maxLen=3, bool focus}) {
+TextField _fieldPool({String label, String hint, int maxLen=3, bool focus=false}) {
   return TextField(
+    //TODO: text controller
     autofocus: focus,
     keyboardType: TextInputType.number,
     textAlign: TextAlign.center,
     maxLength: maxLen,
+    onSubmitted: (value) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('weight', value);
+    },
     decoration: InputDecoration(
 // border: OutlineInputBorder(),
       labelText: label,
@@ -93,6 +111,10 @@ TextField _fieldPool({String label, String hint, int maxLen=3, bool focus}) {
     ),
   );
 }
+
+// _savePrefs() async {
+//
+// }
 
 
 
