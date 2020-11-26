@@ -12,14 +12,6 @@ void main() {
 class UroControlMain extends StatelessWidget {
   // This widget is the root of your application.
 
-  void initState() async {
-    final prefs = await SharedPreferences.getInstance();
-    int weight = (prefs.getInt('weight') ?? 0);
-    int tall = (prefs.getInt('tall') ?? 0);
-    int age = (prefs.getInt('age') ?? 0);
-
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -56,67 +48,68 @@ class UroControlMain extends StatelessWidget {
   }
 }
 
-class SecondPage extends StatelessWidget{
+class SecondPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    const List<String> entries = <String>['A', 'B', 'C'];
-    const List<int> colorCodes = <int>[600, 500, 100];
+  _SecondPageState createState() => _SecondPageState();
+}
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Second Screen"),
-        automaticallyImplyLeading: false,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 35.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _fieldPool(label: "Вес", hint: "в килограммах", focus: true),
-            _fieldPool(label: "Рост", hint: "в сантиметрах"),
-            _fieldPool(label: "Возраст"),
-          ],
-        ),
-      )
-          );
+class _SecondPageState extends State<SecondPage> {
+  final weightController = TextEditingController();
+  final tallController = TextEditingController();
+
+  initState() {
+    super.initState();
+    loadTextInputs();
   }
 
-}
+  loadTextInputs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final value = prefs.getString('weight');
+    weightController.text = value;
+  }
 
-// Container(
-// alignment: Alignment.center,
-// decoration: BoxDecoration(
-// border: Border.all(color: Colors.amberAccent, width: 6.0),
-// ),
-// child: Text(
-// "Some Text Here"
-// ),
-// )
+  @override
+  Widget build(BuildContext context) {
 
-TextField _fieldPool({String label, String hint, int maxLen=3, bool focus=false}) {
-  return TextField(
-    //TODO: text controller
-    autofocus: focus,
-    keyboardType: TextInputType.number,
-    textAlign: TextAlign.center,
-    maxLength: maxLen,
-    onSubmitted: (value) async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('weight', value);
-    },
-    decoration: InputDecoration(
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Second Screen"),
+          automaticallyImplyLeading: false,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _fieldPool(label: "Вес", controllerName: weightController,
+                  shaPrefValue: 'weight', hint: "в килограммах"),
+              _fieldPool(label: "Рост", hint: "в сантиметрах"),
+              _fieldPool(label: "Возраст"),
+            ],
+          ),
+        )
+    );
+  }
+  TextField _fieldPool({String label, TextEditingController controllerName,
+    shaPrefValue, String hint, int maxLen=3, bool focus=false}) {
+
+    return TextField(
+      autofocus: focus,
+      keyboardType: TextInputType.number,
+      textAlign: TextAlign.center,
+      controller: controllerName,
+      maxLength: maxLen,
+      onSubmitted: (value) async {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString(shaPrefValue, value);
+      },
+      decoration: InputDecoration(
 // border: OutlineInputBorder(),
-      labelText: label,
-      hintText: hint,
-    ),
-  );
-}
-
-// _savePrefs() async {
-//
-// }
-
-
-
+        labelText: label,
+        hintText: hint,
+      ),
+    );
+  }
+  }
 
 
