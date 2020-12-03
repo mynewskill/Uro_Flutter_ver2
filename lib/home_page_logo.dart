@@ -7,7 +7,7 @@ import 'package:uro_control/main.dart';
 import 'my_strings.dart';
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({this.title});
+  MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 

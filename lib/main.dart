@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:uro_control/home_page_logo.dart';
 import 'package:uro_control/my_strings.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 
 void main() {
   runApp(UroControlMain());
@@ -11,7 +9,6 @@ void main() {
 
 class UroControlMain extends StatelessWidget {
   // This widget is the root of your application.
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,11 +30,6 @@ class UroControlMain extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
-        textTheme: TextTheme(
-          headline2: TextStyle(fontSize: 48.0, fontFamily: 'NerkoOne',
-              fontWeight: FontWeight.bold
-          )
-        ),
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
@@ -48,68 +40,117 @@ class UroControlMain extends StatelessWidget {
   }
 }
 
-class SecondPage extends StatefulWidget {
+class SecondPage extends StatefulWidget{
+
   @override
   _SecondPageState createState() => _SecondPageState();
 }
 
 class _SecondPageState extends State<SecondPage> {
-  final weightController = TextEditingController();
-  final tallController = TextEditingController();
-
-  initState() {
-    super.initState();
-    loadTextInputs();
-  }
-
-  loadTextInputs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final value = prefs.getString('weight');
-    weightController.text = value;
-  }
 
   @override
   Widget build(BuildContext context) {
+//TODO: remove Lists after complete dropdown button
+//     const List<String> entries = <String>['A', 'B', 'C'];
+//     const List<int> colorCodes = <int>[600, 500, 100];
+//     String _dDButtonNowValue = "Мужчина";
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Second Screen"),
-          automaticallyImplyLeading: false,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 35.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _fieldPool(label: "Вес", controllerName: weightController,
-                  shaPrefValue: 'weight', hint: "в килограммах"),
-              _fieldPool(label: "Рост", hint: "в сантиметрах"),
-              _fieldPool(label: "Возраст"),
-            ],
-          ),
-        )
-    );
+        body: Builder(builder: (context) {
+          return Center(
+            child: FlatButton(
+              onPressed: () {
+                SnackBar mySnackBar = SnackBar(
+                  content: Text("Simple Text"),
+                );
+                Scaffold.of(context).showSnackBar(mySnackBar);
+              },
+              child: Text("Click Me"),
+            ),
+          );
+        }));
+    // return Scaffold(
+    //     appBar: AppBar(
+    //       title: Text("Second Screen"),
+    //       automaticallyImplyLeading: false,
+    //     ),
+    //     body: Padding(
+    //       padding: const EdgeInsets.symmetric(horizontal: 35.0),
+    //       child: ElevatedButton(
+    //         onPressed: () {
+    //           final snackBar = SnackBar(
+    //             content: Text('Yay! A SnackBar!'),
+    //             action: SnackBarAction(
+    //               label: 'Undo',
+    //               onPressed: () {
+    //                 // Some code to undo the change.
+    //               },
+    //             ),
+    //           );
+    //
+    //           // Find the Scaffold in the widget tree and use
+    //           // it to show a SnackBar.
+    //           Scaffold.of(context).showSnackBar(snackBar);
+    //         },
+    //         child: Text('Show SnackBar'),
+    //       ),
+    //       // child: Column(
+    //       //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //       //   children: [
+    //       //     _fieldPool(label: "Вес", hint: "в килограммах", focus: true),
+    //       //     _fieldPool(label: "Рост", hint: "в сантиметрах"),
+    //       //     DropdownButtonFormField<String>(
+    //       //       value: _dDButtonNowValue,
+    //       //       isExpanded: true,
+    //       //       onChanged: (String newValue) {
+    //       //         setState(() {
+    //       //           _dDButtonNowValue = newValue;
+    //       //         });
+    //       //       },
+    //       //       items: <String>["Мужчина", "Женщина"]
+    //       //           .map<DropdownMenuItem<String>>(
+    //       //               (String value) {
+    //       //             return DropdownMenuItem(
+    //       //               value: value,
+    //       //               child: Text(value),
+    //       //             );
+    //       //           }
+    //       //       ).toList(),
+    //       //     ),
+    //       //     _fieldPool(label: "Возраст"),
+    //       //   ],
+    //       // ),
+    //     )
+    // );
   }
-  TextField _fieldPool({String label, TextEditingController controllerName,
-    shaPrefValue, String hint, int maxLen=3, bool focus=false}) {
+}
 
-    return TextField(
-      autofocus: focus,
-      keyboardType: TextInputType.number,
-      textAlign: TextAlign.center,
-      controller: controllerName,
-      maxLength: maxLen,
-      onSubmitted: (value) async {
-        final prefs = await SharedPreferences.getInstance();
-        prefs.setString(shaPrefValue, value);
-      },
-      decoration: InputDecoration(
+// method constructor pool fields
+TextField _fieldPool({String label, String hint, int maxLen=3, bool focus=false}) {
+  return TextField(
+    autofocus: focus,
+    keyboardType: TextInputType.number,
+    textAlign: TextAlign.center,
+    maxLength: maxLen,
+    decoration: InputDecoration(
 // border: OutlineInputBorder(),
-        labelText: label,
-        hintText: hint,
-      ),
-    );
-  }
-  }
+      labelText: label,
+      hintText: hint,
+    ),
+  );
+}
+
+// Container(
+// alignment: Alignment.center,
+// decoration: BoxDecoration(
+// border: Border.all(color: Colors.amberAccent, width: 6.0),
+// ),
+// child: Text(
+// "Some Text Here"
+// ),
+// )
+
+
+
 
 
