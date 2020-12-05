@@ -33,6 +33,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   shared_preferences: 0.5.12+4
+  flutter_svg: ^0.19.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -48,6 +49,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/logo.png
+    - images/logo.svg
 #    - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -66,10 +68,18 @@ flutter:
       fonts:
         - asset: fonts/Montserrat-Bold.ttf
         - asset: fonts/Montserrat-Regular.ttf
-#   fonts:
+
     - family: NerkoOne
       fonts:
         - asset: fonts/NerkoOne-Regular.ttf
+
+    - family: Geometria
+      fonts:
+        - asset: fonts/Geometria.ttf
+        - asset: fonts/Geometria-Bold.ttf
+        - asset: fonts/Geometria-Italic.ttf
+        - asset: fonts/Geometria-Medium.ttf
+          weight: 500
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
