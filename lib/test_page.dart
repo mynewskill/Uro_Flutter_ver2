@@ -42,10 +42,10 @@ class _TestPageState extends State<TestPage> {
                               top: 50.0,
                               bottom: 25.0
                           ),
-                          child: Text (MyStrings.appName,
+                          child: Text (appName,
                             style: TextStyle(
                                 color: Colors.white,
-                                fontFamily: MyStrings.mainTextFamily,
+                                fontFamily: mainTextFamily,
                                 fontSize: 40.0
                             ),
                           ),
@@ -82,7 +82,7 @@ class _TestPageState extends State<TestPage> {
                                     padding: const EdgeInsets.only(top: 15.0),
                                     child: Align(
                                       alignment: Alignment.bottomCenter,
-                                      child: Text(MyStrings.putYourData,style: TextStyle(
+                                      child: Text(putYourData,style: TextStyle(
                                         color: Color(0xff4BAAC5),
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w500,
@@ -127,7 +127,7 @@ class _TestPageState extends State<TestPage> {
                                                 borderRadius: BorderRadius.circular(89.0)
                                             ),
                                             // padding: EdgeInsets.fromLTRB(80.0, 15.0, 80.0, 15.0),
-                                            child: Text(MyStrings.continueButton, style: TextStyle(
+                                            child: Text(continueButton, style: TextStyle(
                                                 fontSize: 18.0
                                             ),),
                                           ),

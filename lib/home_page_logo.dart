@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
     delay();
   }
     Future delay() async {
-      await new Future.delayed(new Duration(milliseconds: 3000), ()
+      await new Future.delayed(new Duration(milliseconds: 1500), ()
       {
         setState(() {
           Navigator.of(context).pushNamed("/second");
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    "${MyStrings.appName}",
+                    appName,
                     style: TextStyle(fontFamily: "Montserrat", fontSize: 46.0,
                         color: Colors.white
                     ),

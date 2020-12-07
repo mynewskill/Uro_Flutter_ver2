@@ -22,7 +22,7 @@ class UroControlMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: MyStrings.appName,
+      title: appName,
       initialRoute: '/',
       routes: {
         // '/': (context) => UroControlMain(),

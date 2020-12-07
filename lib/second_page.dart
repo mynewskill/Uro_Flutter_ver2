@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uro_control/my_strings.dart';
+import 'package:dropdownfield/dropdownfield.dart  ';
 
 class SecondSecondPage extends StatefulWidget {
   @override
@@ -16,6 +16,7 @@ class _SecondSecondPageState extends State<SecondSecondPage> {
   final weightController = TextEditingController();
   final tallController = TextEditingController();
   final ageController = TextEditingController();
+  final textFieldControl = TextEditingController();
   // text controllers
 
   String ageValue = 'age';
@@ -94,10 +95,10 @@ class _SecondSecondPageState extends State<SecondSecondPage> {
                           alignment: Alignment.center,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 25.0),
-                            child: Text (MyStrings.appName,
+                            child: Text (appName,
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontFamily: MyStrings.mainTextFamily,
+                                  fontFamily: mainTextFamily,
                                   fontSize: 40.0
                               ),
                             ),
@@ -134,7 +135,7 @@ class _SecondSecondPageState extends State<SecondSecondPage> {
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Align(
                                         alignment: Alignment.bottomCenter,
-                                        child: Text(MyStrings.putYourData,style: TextStyle(
+                                        child: Text(putYourData,style: TextStyle(
                                           color: Color(0xff4BAAC5),
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
@@ -148,16 +149,15 @@ class _SecondSecondPageState extends State<SecondSecondPage> {
                                         //   flex: 9,
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                          _fieldPool(label: "Вес", hint: "в килограммах"),
-                                          _fieldPool(label: "Рост", hint: "в сантиметрах"),
-
+                                          _fieldPool(label: "Вес", hint: "кг"),
+                                          _fieldPool(label: "Рост", hint: "см"),
                                           Padding(
                                             padding: const EdgeInsets.only(top: 20.0),
                                             child: FormField<String>(
                                                 builder: (FormFieldState<String> state) {
                                                   return InputDecorator(
                                                       decoration: InputDecoration(
-                                                        disabledBorder: OutlineInputBorder(borderSide: BorderSide(style: BorderStyle.none)),
+                                                          disabledBorder: OutlineInputBorder(borderSide: BorderSide(style: BorderStyle.none)),
                                                           labelText: "Пол",
                                                           errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16.0),
                                                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
@@ -188,7 +188,7 @@ class _SecondSecondPageState extends State<SecondSecondPage> {
                                             ),
                                           ),
 
-                                          _fieldPool(label: "Возраст", txtInputAction: TextInputAction.done),
+                                          _fieldPool(label: "Возраст",txtInputAction: TextInputAction.done),
                                           Padding(
                                             padding: const EdgeInsets.symmetric(vertical: 15.0),
                                             child: MaterialButton(
@@ -205,7 +205,7 @@ class _SecondSecondPageState extends State<SecondSecondPage> {
                                                   borderRadius: BorderRadius.circular(89.0)
                                               ),
                                               // padding: EdgeInsets.fromLTRB(80.0, 15.0, 80.0, 15.0),
-                                              child: Text(MyStrings.continueButton, style: TextStyle(
+                                              child: Text(continueButton, style: TextStyle(
                                                   fontSize: 18.0
                                               ),),
                                             ),
@@ -249,6 +249,8 @@ class _SecondSecondPageState extends State<SecondSecondPage> {
 
     return TextField(
       autofocus: focus,
+      cursorColor: Colors.grey,
+
       textInputAction: txtInputAction,
       keyboardType: TextInputType.number,
       textAlign: TextAlign.center,
@@ -260,12 +262,63 @@ class _SecondSecondPageState extends State<SecondSecondPage> {
         // //TODO: make check if value isSet or not
       },
       decoration: InputDecoration(
-        // border: OutlineInputBorder(),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: primaryColor,
+              width: 1.5
+            )
+          ),
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: primaryColor,
+              )
+          ),
           labelText: label,
-          // labelStyle: TextStyle.,
-          helperText: hint
+          alignLabelWithHint: true,
+          // prefixText: "Hello World!",
+          suffixText: hint,
+          labelStyle: TextStyle(color: Colors.red),
+          hintStyle: TextStyle(color: Colors.green),
+          // helperText: hint
       ),
     );
   }
 
 }
+
+// Padding(
+// padding: const EdgeInsets.only(top: 20.0),
+// child: FormField<String>(
+// builder: (FormFieldState<String> state) {
+// return InputDecorator(
+// decoration: InputDecoration(
+// disabledBorder: OutlineInputBorder(borderSide: BorderSide(style: BorderStyle.none)),
+// labelText: "Пол",
+// errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16.0),
+// border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
+// isEmpty: _dropDownValue == '',
+// child: DropdownButtonHideUnderline(
+// child: DropdownButton<String>(
+// value: _dropDownValue,
+// isDense: true,
+// isExpanded: true,
+// onChanged: (value) {
+// setState(() {
+// state.didChange(value);
+// setState(() {
+// _dropDownValue = value;
+// });
+// });
+// },
+// items: sexList.map<DropdownMenuItem<String>>((String val) {
+// return DropdownMenuItem<String>(
+// value: val,
+// child: Text(val),
+// );
+// }).toList(),
+// ),
+// )
+// );
+// }
+// ),
+// )
