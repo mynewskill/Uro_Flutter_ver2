@@ -3,9 +3,15 @@ import 'package:flutter/widgets.dart';
 import 'package:uro_control/home_page_logo.dart';
 import 'package:uro_control/my_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uro_control/second_page.dart';
+import 'package:uro_control/test_page.dart';
+import 'package:flutter/services.dart';
+import 'test_scroll.dart';
 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(UroControlMain());
 }
 
@@ -20,7 +26,9 @@ class UroControlMain extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // '/': (context) => UroControlMain(),
-        '/second': (context) =>SecondPage()
+        '/second': (context) => SecondSecondPage(),
+        '/test': (context) => TestPage(),
+        '/scroll': (context) => ScrollTest()
       },
       theme: ThemeData(
         // This is the theme of your application.
@@ -56,6 +64,7 @@ class SecondPage extends StatefulWidget {
 class _SecondPageState extends State<SecondPage> {
   final weightController = TextEditingController();
   final tallController = TextEditingController();
+  final ageController = TextEditingController();
 
   initState() {
     super.initState();
@@ -64,8 +73,9 @@ class _SecondPageState extends State<SecondPage> {
 
   loadTextInputs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final value = prefs.getString('weight');
-    weightController.text = value;
+    weightController.text = prefs.getString('weight');
+    tallController.text = prefs.getString('tall');
+    ageController.text = prefs.getString('age');
   }
 
   @override
@@ -83,8 +93,10 @@ class _SecondPageState extends State<SecondPage> {
             children: [
               _fieldPool(label: "Вес", controllerName: weightController,
                   shaPrefValue: 'weight', hint: "в килограммах"),
-              _fieldPool(label: "Рост", hint: "в сантиметрах"),
-              _fieldPool(label: "Возраст"),
+              _fieldPool(label: "Рост", controllerName: tallController,
+                  shaPrefValue: 'tall', hint: "в сантиметрах"),
+              _fieldPool(label: "Возраст", controllerName: ageController,
+                  shaPrefValue: 'age'),
             ],
           ),
         )

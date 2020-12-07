@@ -77,9 +77,11 @@ flutter:
       fonts:
         - asset: fonts/Geometria.ttf
         - asset: fonts/Geometria-Bold.ttf
-        - asset: fonts/Geometria-Italic.ttf
-        - asset: fonts/Geometria-Medium.ttf
           weight: 500
+        - asset: fonts/Geometria-Italic.ttf
+          style: italic
+        - asset: fonts/Geometria-Medium.ttf
+          weight: 200
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

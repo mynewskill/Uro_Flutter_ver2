@@ -6,10 +6,30 @@ import 'package:uro_control/main.dart';
 
 import 'my_strings.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   MyHomePage({this.title});
 
   final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    delay();
+  }
+    Future delay() async {
+      await new Future.delayed(new Duration(milliseconds: 3000), ()
+      {
+        setState(() {
+          Navigator.of(context).pushNamed("/second");
+        });
+      });}
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +39,8 @@ class MyHomePage extends StatelessWidget {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
+
     return Scaffold(
       // appBar: AppBar(
       //   // Here we take the value from the MyHomePage object that was created by
@@ -63,9 +85,9 @@ class MyHomePage extends StatelessWidget {
             ),
             RaisedButton(
               color: Colors.amberAccent,
-                onPressed: () {
-                  Navigator.pushNamed(context, '/second');
-                }, child: Text("Click me"),
+              onPressed: () {
+                Navigator.pushNamed(context, '/test');
+              }, child: Text("Go further"),
             )
           ],
         ),
